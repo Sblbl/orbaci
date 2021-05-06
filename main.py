@@ -9,11 +9,14 @@ import img_processing
 import audio_processing
 
 from PIL import Image
-from patterns import mod_0, mod_1, mod_2, mod_3
 
 import warnings
 warnings.filterwarnings('ignore')
 
+
+"""
+LOADINGS
+"""
 
 in_fol = 'input/'
 out_fol = 'output/'
@@ -21,6 +24,10 @@ im_filename = None
 au_filename = None
 k = 3
 pooling_size = [3, 3]
+
+print('\U0001F359\U0001F359\U0001F359\U0001F359\U0001F359\U0001F359\U0001F359\U0001F359')
+print('Nice to see you!')
+print('\U0001F359\U0001F359\U0001F359\U0001F359\U0001F359\U0001F359\U0001F359\U0001F359\n')
 
 for file in os.listdir(in_fol):
 	if file.endswith('.jpg'):
@@ -31,17 +38,21 @@ for file in os.listdir(in_fol):
 im_name = im_filename[:-4]
 au_name = au_filename[:-4]
 
-print('\U0001F359\U0001F359\U0001F359\U0001F359\U0001F359\U0001F359\U0001F359\U0001F359')
-print('Nice to see you!')
-print('\U0001F359\U0001F359\U0001F359\U0001F359\U0001F359\U0001F359\U0001F359\U0001F359')
+print('🖼', '\tfound', im_filename, 'as image')
+print('🎙', '\tfound', au_filename, 'as audio\n')
 
+mod_0 = np.genfromtxt(in_fol + 'p_0.dat', delimiter=',')
+print('🌒', '\tfound pattern 0')
+mod_1 = np.genfromtxt(in_fol + 'p_1.dat', delimiter=',')
+print('🌓', '\tfound pattern 1')
+mod_2 = np.genfromtxt(in_fol + 'p_2.dat', delimiter=',')
+print('🌔', '\tfound pattern 2')
+mod_3 = np.genfromtxt(in_fol + 'p_3.dat', delimiter=',')
+print('🌕', '\tfound pattern 3\n')
 
 """
 IMAGE PREPROCESSING
 """
-
-print('\U0001F303', '\tfound', im_filename, 'as image')
-print('\U0001F3A7', '\tfound', au_filename, 'as audio')
 
 image = Image.open(in_fol + im_filename)
  
@@ -58,14 +69,14 @@ im = np.asarray(image)
 dominants = img_processing.get_cols(im, k)
 # TODO: add possibility to choose n° of clusters
 
-print('\U0001F3A8', '\tdominant colours found:', dominants)
+print('🌈', '\tdominant colours found:', dominants)
 
 # TODO: add possibility to set the pooling size
 pooled = img_processing.poolingOverlap(im, pooling_size,stride=None,method='avg',pad=False)
-print('\U0001F3CA', '\tcreated pooled image with pooling =', pooling_size)
+print('🏊‍♂️', '\tcreated pooled image with pooling =', pooling_size)
 
 pooled_dom = img_processing.transform_in_dominant(pooled, dominants)
-print('\U0001F308', '\ttransformed pooled image to only dominants')
+print('🎨', '\ttransformed pooled image to only dominants\n')
 
 np.save(out_fol + im_name + '.npy', pooled_dom)
 
@@ -76,7 +87,7 @@ y, sr = librosa.load(in_fol + au_filename)
 chroma = audio_processing.chroma(y, sr, au_name)
 if chroma.shape[1] > 198:
 	chroma = chroma[:, :198]
-print('\U0001F3BC', '\tcreated chromagram for', au_name)
+print('📯', '\tcreated chromagram for', au_name)
 
 np.save(out_fol + 'chroma_' + au_name + '.npy', chroma)
 
@@ -90,11 +101,11 @@ plt.imsave((out_fol + im_name + '_pooled.png'), pooled_dom/255)
 chromapool = img_processing.poolingOverlap(chroma,(3, 5),stride=(1, 8),method='mean',pad=False)
 chrim = Image.fromarray((chromapool)*255)
 chrim = np.asarray(chrim)
-print('\U0001F3B9', '\tpooled chromagram')
+print('🎹', '\tpooled chromagram')
 
 remapped = audio_processing.remap(chrim)
 mask = audio_processing.create_mask(remapped, [mod_0, mod_1, mod_2, mod_3])
-print('\U0001F47A', '\tcreated mask')
+print('👺', '\tcreated mask')
 
 plt.imsave(out_fol + 'mask_' + im_name + '.png', mask, cmap='binary')
 plt.imsave(out_fol + 'mask_' + im_name + '.svg', mask, cmap='binary')
@@ -104,5 +115,5 @@ mask = np.array([mask.T, mask.T, mask.T]).T
 textile = img_processing.apply_mask(pooled_dom, mask)
 plt.imsave(out_fol + 'textile_' + im_name + '.png', textile/255)
 plt.imsave(out_fol + 'textile_' + im_name + '.svg', textile/255)
-print('\U0001F458', '\tcreated textile')
-print('\U0001F411', '\tfinished')
+print('🧵', '\tcreated textile\n')
+print('🐏', '\tfinished')
