@@ -1,5 +1,5 @@
 settings = {
-	'width' :	150, 
-	'height' :	150,
+	'width' :	160, 
+	'height' :	90,
 	'colours' : 3,
 }

@@ -42,7 +42,8 @@ im_name = im_filename[:-4]
 au_name = au_filename[:-4]
 
 print('🖼', '\tfound', im_filename, 'as image')
-print('🎙', '\tfound', au_filename, 'as audio\n')
+print('🎙', '\tfound', au_filename, 'as audio')
+print('🏟', '\tfound settings: width =', width, '\theight =', height,'\n')
 
 mod_0 = np.genfromtxt(in_fol + 'p_0.dat', delimiter=',')
 print('🌒', '\tfound pattern 0')
@@ -53,8 +54,8 @@ print('🌔', '\tfound pattern 2')
 mod_3 = np.genfromtxt(in_fol + 'p_3.dat', delimiter=',')
 print('🌕', '\tfound pattern 3\n')
 
-pooling_size_audio = (mod_0.shape[1], mod_0.shape[0])
-stride_audio = (mod_0.shape[1], mod_0.shape[0])
+pooling_size_audio = (mod_0.shape[0], mod_0.shape[1])
+stride_audio = (mod_0.shape[0], mod_0.shape[1])
 
 
 """
