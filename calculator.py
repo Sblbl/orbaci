@@ -1,6 +1,7 @@
 """
 Calculates the padding and the pattern size
 to obtain the desired output
+hello
 """
 import os
 import numpy as np
