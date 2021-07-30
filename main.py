@@ -55,25 +55,31 @@ IMAGE PREPROCESSING
 """
 
 image = Image.open(in_fol + im_filename)
- 
-horizontal = False
 
 if image.size[0] > image.size[1]:
 	image = image.resize((225, 150))
-	horizontal = True
-else: 
-	image = image.resize((150,225))
+elif image.size[0] < image.size[1]:
+	image = image.resize((150, 225))
+elif image.size[0] == image.size[1]:
+	image = image.resize((150, 150))
 	
 im = np.asarray(image)
-
+print(im.shape)
 dominants = img_processing.get_cols(im, k)
 # TODO: add possibility to choose n° of clusters
 
 print('🌈', '\tdominant colours found:', dominants)
 
 # TODO: add possibility to set the pooling size
-pooled = img_processing.poolingOverlap(im, pooling_size,stride=None,method='avg',pad=False)
-print('🏊‍♂️', '\tcreated pooled image with pooling =', pooling_size)
+pooled = img_processing.poolingOverlap(
+			im, 
+			pooling_size,
+			stride = None,
+			method = 'avg',
+			pad = False
+			)
+
+print('🏊‍♂️', '\tcreated pooled image of shape', pooled.shape)
 
 pooled_dom = img_processing.transform_in_dominant(pooled, dominants)
 print('🎨', '\ttransformed pooled image to only dominants\n')
@@ -89,7 +95,7 @@ if chroma.shape[1] > 198:
 	chroma = chroma[:, :198]
 print('📯', '\tcreated chromagram for', au_name)
 
-np.save(out_fol + 'chroma_' + au_name + '.npy', chroma)
+#np.save(out_fol + 'chroma_' + au_name + '.npy', chroma)
 
 """
 TEXTILE GENERATION
@@ -98,10 +104,16 @@ TEXTILE GENERATION
 pooled_dom = img_processing.resize(pooled_dom)
 plt.imsave((out_fol + im_name + '_pooled.png'), pooled_dom/255)
 
-chromapool = img_processing.poolingOverlap(chroma,(3, 5),stride=(1, 8),method='mean',pad=False)
+chromapool = img_processing.poolingOverlap(
+			chroma,
+			(3, 5),
+			stride = (1, 8),
+			method='mean',
+			pad=False)
+
 chrim = Image.fromarray((chromapool)*255)
 chrim = np.asarray(chrim)
-print('🎹', '\tpooled chromagram')
+print('🎹', '\tpooled chromagram of size', chromapool.shape)
 
 remapped = audio_processing.remap(chrim)
 mask = audio_processing.create_mask(remapped, [mod_0, mod_1, mod_2, mod_3])
