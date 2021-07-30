@@ -1,0 +1,95 @@
+* {
+	box-sizing: border-box;
+	text-align: left;
+	margin: 0;
+	padding: 0;
+	font-family: 'IBM Plex Mono', monospace;
+}
+
+header {
+	padding: 16px;
+	width: 100vw;
+	background-color: #008080;
+	color: #FFF;
+}
+
+main {
+	width: 100vw;
+}
+
+input {
+	border: none;
+	background-color: #FFF;
+	padding: 4px;
+	width: 64px;
+}
+
+input:focus {
+	border: none;
+	outline: none;
+}
+
+input:invalid {
+    border: 3px solid #FF6347;
+}
+
+h1 {
+	font-size: 32px;
+}
+
+button {
+	background-color: #FFFF00;
+	padding: 4px 6px;
+	text-align: center;
+	border: none;
+	box-shadow: none;
+	font-weight: 700;
+}
+
+button:hover {
+	background-color: #FFF;
+	cursor: pointer;
+}
+
+button:focus {
+	border: none;
+	box-shadow: none;
+}
+
+.config_option {
+	margin-right: 16px;
+}
+
+.dot {
+	fill: #FFF;
+	stroke: #FFD700;
+	stroke-width: 1px;
+	cursor: pointer;
+}
+
+.dot.black {
+	fill: #FFD700;
+}
+
+#size_config {
+	background-color: #40E0D0;
+	padding: 16px;
+	display: flex;
+}
+
+#content {
+	padding: 16px;
+	display: flex;
+}
+
+#pattern_container {
+	
+}
+
+#pattern_transcript {
+	padding: 16px;
+}
+
+#pattern_transcript span {
+	display: block;
+}

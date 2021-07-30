@@ -7,6 +7,7 @@ import matplotlib.pyplot as plt
 
 import img_processing
 import audio_processing
+from settings import settings
 
 from PIL import Image
 
@@ -22,7 +23,9 @@ in_fol = 'input/'
 out_fol = 'output/'
 im_filename = None
 au_filename = None
-k = 3
+k = settings['colours']
+width = settings['width']
+height = settings['height']
 pooling_size = [3, 3]
 
 print('\U0001F359\U0001F359\U0001F359\U0001F359\U0001F359\U0001F359\U0001F359\U0001F359')
@@ -39,7 +42,8 @@ im_name = im_filename[:-4]
 au_name = au_filename[:-4]
 
 print('🖼', '\tfound', im_filename, 'as image')
-print('🎙', '\tfound', au_filename, 'as audio\n')
+print('🎙', '\tfound', au_filename, 'as audio')
+print('🏟', '\tfound settings: width =', width, '\theight =', height,'\n')
 
 mod_0 = np.genfromtxt(in_fol + 'p_0.dat', delimiter=',')
 print('🌒', '\tfound pattern 0')
@@ -50,23 +54,21 @@ print('🌔', '\tfound pattern 2')
 mod_3 = np.genfromtxt(in_fol + 'p_3.dat', delimiter=',')
 print('🌕', '\tfound pattern 3\n')
 
+pooling_size_audio = (mod_0.shape[0], mod_0.shape[1])
+stride_audio = (mod_0.shape[0], mod_0.shape[1])
+
+
 """
 IMAGE PREPROCESSING
 """
 
 image = Image.open(in_fol + im_filename)
 
-if image.size[0] > image.size[1]:
-	image = image.resize((225, 150))
-elif image.size[0] < image.size[1]:
-	image = image.resize((150, 225))
-elif image.size[0] == image.size[1]:
-	image = image.resize((150, 150))
-	
+image = image.resize((width, height))
+
 im = np.asarray(image)
-print(im.shape)
 dominants = img_processing.get_cols(im, k)
-# TODO: add possibility to choose n° of clusters
+
 
 print('🌈', '\tdominant colours found:', dominants)
 
@@ -82,9 +84,10 @@ pooled = img_processing.poolingOverlap(
 print('🏊‍♂️', '\tcreated pooled image of shape', pooled.shape)
 
 pooled_dom = img_processing.transform_in_dominant(pooled, dominants)
-print('🎨', '\ttransformed pooled image to only dominants\n')
+pooled_dom = img_processing.resize(pooled_dom, width, height)
+plt.imsave((out_fol + im_name + '_pooled.png'), pooled_dom/255)
 
-np.save(out_fol + im_name + '.npy', pooled_dom)
+print('🎨', '\ttransformed pooled image to only dominants\n')
 
 """
 AUDIO PREPROCESSING
@@ -95,19 +98,19 @@ if chroma.shape[1] > 198:
 	chroma = chroma[:, :198]
 print('📯', '\tcreated chromagram for', au_name)
 
-#np.save(out_fol + 'chroma_' + au_name + '.npy', chroma)
-
 """
 TEXTILE GENERATION
 """
 
-pooled_dom = img_processing.resize(pooled_dom)
-plt.imsave((out_fol + im_name + '_pooled.png'), pooled_dom/255)
+chroma = Image.fromarray((chroma))
+chroma = chroma.resize((width, height))
+plt.imsave(out_fol + 'chroma_' + au_name + '.png', chroma, cmap='gray')
+chroma = np.array(chroma)
 
 chromapool = img_processing.poolingOverlap(
 			chroma,
-			(3, 5),
-			stride = (1, 8),
+			pooling_size_audio,
+			stride = (stride_audio),
 			method='mean',
 			pad=False)
 

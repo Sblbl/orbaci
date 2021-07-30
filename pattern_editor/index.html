@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8">
+	<title>Pattern Editor</title>
+	<link rel="stylesheet" type="text/css" href="style.css">
+	<link rel="preconnect" href="https://fonts.googleapis.com">
+	<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+	<link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;700&display=swap" rel="stylesheet">
+	<link href="https://fonts.googleapis.com/icon?family=Material+Icons"
+      rel="stylesheet">
+    <script
+      src="https://code.jquery.com/jquery-3.6.0.min.js"
+      integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4="
+      crossorigin="anonymous"></script>
+</head>
+<body>
+	<header><h1>Pattern editor</h1></header>
+	<main>
+		<div id='size_config'>
+			<div class='config_option'>
+				<label for='w_config'>Width</label>
+				<input type='text' id='w_config' name='w_config' pattern='[0-9]+'>
+			</div>
+			<div class='config_option'>
+				<label for='h_config'>Height</label>
+				<input type='text' id='h_config' name='h_config' pattern='[0-9]+'>
+			</div>
+			<button id='draw_button'>Draw</button>
+		</div>
+		<div id='content'>
+			<div id='pattern_container'></div>
+			<div id='pattern_transcript'></div>
+		</div>
+	</main>
+</body>
+<script type="text/javascript" src="script.js"></script>
+</html>
