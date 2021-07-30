@@ -120,17 +120,10 @@ def transform_in_dominant(im, dominants):
 			new_im[i].append(out_col)
 	return np.array(new_im)
 
-def resize(image):
+def resize(image, w, h):
 	im = Image.fromarray(np.uint8(image))
-
-	if im.size[0] > im.size[1]:
-		im = im.resize((225, 150), Image.NEAREST)
-		horizontal = True
-	else: 
-		im = im.resize((150,225), Image.NEAREST)
-		
+	im = im.resize((w, h), Image.NEAREST)	
 	im = np.asarray(im)
-	
 	return im
 
 def apply_mask(im, mask):
