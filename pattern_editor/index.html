@@ -17,7 +17,7 @@
 <body>
 	<header><h1>Pattern editor</h1></header>
 	<main>
-		<div id='size_config'>
+		<div id='size_config' class='menu'>
 			<div class='config_option'>
 				<label for='w_config'>Width</label>
 				<input type='text' id='w_config' name='w_config' pattern='[0-9]+'>
@@ -26,7 +26,16 @@
 				<label for='h_config'>Height</label>
 				<input type='text' id='h_config' name='h_config' pattern='[0-9]+'>
 			</div>
-			<button id='draw_button'>Draw</button>
+			<button id='draw_button'>Create Canvas</button>
+		</div>
+		<div id='palette_container' class='menu'>
+			<span id='palette_icon' class="material-icons">palette</span>
+			<button id='black_button' class='palette_button current'>
+				<span class="material-icons">brush</span>
+			</button>
+			<button id='white_button' class='palette_button'>
+				<span class="material-icons">brush</span>
+			</button>
 		</div>
 		<div id='content'>
 			<div id='pattern_container'></div>

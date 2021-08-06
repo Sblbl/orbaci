@@ -38,7 +38,7 @@ h1 {
 }
 
 button {
-	background-color: #FFFF00;
+	background-color: #FFD700;
 	padding: 4px 6px;
 	text-align: center;
 	border: none;
@@ -47,7 +47,7 @@ button {
 }
 
 button:hover {
-	background-color: #FFF;
+	background-color: #fff099;
 	cursor: pointer;
 }
 
@@ -71,19 +71,44 @@ button:focus {
 	fill: #FFD700;
 }
 
-#size_config {
-	background-color: #40E0D0;
+.menu {
 	padding: 16px;
 	display: flex;
+}
+
+#size_config {
+	background-color: #3adfce;
+}
+
+#palette_container {
+	background-color: #e9fcfa;
+	padding: 12px 16px;
+}
+
+#palette_icon {
+	padding: 4px 6px;
+	margin-right: 8px;
+}
+
+.palette_button span{
+	font-size: 18px;
+}
+
+.palette_button.current {
+	border: 3px solid #000;
+}
+
+#white_button {
+	background-color: #FFF;
+}
+
+#black_button {
+	background-color: #FFD700;
 }
 
 #content {
 	padding: 16px;
 	display: flex;
-}
-
-#pattern_container {
-	
 }
 
 #pattern_transcript {
