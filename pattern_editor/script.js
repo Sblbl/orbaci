@@ -4,8 +4,9 @@ $(window).on('load', function() {
 		side = 32
 
 	let current_w = 0,
-		current_h = 0
-
+		current_h = 0,
+		mode = 'black',
+		drawing = false
 
 	function drawRects() {
 		$('#pattern').remove()
@@ -41,10 +42,26 @@ $(window).on('load', function() {
 
 		$('#pattern_container').append($_svg)
 
-		$('.dot').on('click', (e) => {
-			$(e.target).toggleClass('black')
+		$('.dot').on('mousemove', (e) => {
+			if (mode == 'black' && drawing) {
+				$(e.target).addClass('black')	
+			} else if (mode == 'white' && drawing){
+				$(e.target).removeClass('black')	
+			}
+			
 			makeTranscript()
 		})
+
+		$('.dot').on('click', (e) => {
+			if (mode == 'black') {
+				$(e.target).addClass('black')	
+			} else if (mode == 'white'){
+				$(e.target).removeClass('black')	
+			}
+			
+			makeTranscript()
+		})
+
 
 		makeTranscript()
 	}
@@ -72,13 +89,32 @@ $(window).on('load', function() {
 
 	}
 
-	$_wfield.val(2)
-	$_hfield.val(2)
+	$_wfield.val(6)
+	$_hfield.val(6)
 
 	drawRects()
 
 	$('#draw_button').on('click', (e) => {
 		drawRects()
+	})
+
+	$('.palette_button').on('click', (e) => {
+		let $_target = $(e.target)
+		if(e.target.nodeName != 'BUTTON') {
+			$_target = $(e.target).parent()
+		} 
+		$('.palette_button').removeClass('current')
+		$_target.addClass('current')
+
+		mode = $_target.attr('mode')
+	})
+
+	$(document).on('mousedown', e => {
+		drawing = true
+	})
+
+	$(document).on('mouseup', e => {
+		drawing = false
 	})
 
 })

@@ -15,6 +15,26 @@ header {
 
 main {
 	width: 100vw;
+	padding-bottom: 48px;
+}
+
+footer {
+	display: flex;
+	position: fixed;
+	bottom: 0;
+
+}
+
+footer * {
+	font-size: 12px;
+}
+
+a {
+	color: black;
+}
+
+a:visited {
+	color: black;
 }
 
 input {
@@ -56,6 +76,10 @@ button:focus {
 	box-shadow: none;
 }
 
+li {
+	list-style-type: none;
+}
+
 .config_option {
 	margin-right: 16px;
 }
@@ -90,6 +114,11 @@ button:focus {
 	margin-right: 8px;
 }
 
+.palette_button {
+	width: 36px;
+	height: 36px;
+}
+
 .palette_button span{
 	font-size: 18px;
 }
@@ -112,9 +141,21 @@ button:focus {
 }
 
 #pattern_transcript {
-	padding: 16px;
+	/*display: none;*/
+	font-size: 10px;
+	padding-left: 16px;
 }
 
 #pattern_transcript span {
 	display: block;
+}
+
+.col_1 {
+	padding: 16px;
+	width: calc(50vw - 8px);
+}
+
+.col_2 {
+	padding: 16px;
+	width: calc(50vw - 8px);
 }
