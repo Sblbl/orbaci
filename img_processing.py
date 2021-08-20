@@ -138,3 +138,20 @@ def apply_mask(im, mask):
 		textile.append(row)
 		
 	return np.array(textile)
+
+def apply_grid(ar, reps=8):
+	result = []
+	for x in range(ar.shape[0]):
+		for repx in range(reps):
+			row = []
+			for y in range(ar.shape[1]):
+				for repy in range(reps):
+					row.append(ar[x][y])
+				row.append([0, 255, 255])
+			result.append(row)
+			g_row = []
+		for i in range(len(row)):
+			g_row.append([0, 255, 255])
+		result.append(g_row)
+	result = np.array(result)
+	return(np.array(result))

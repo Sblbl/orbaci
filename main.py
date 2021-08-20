@@ -72,7 +72,6 @@ dominants = img_processing.get_cols(im, k)
 
 print('🌈', '\tdominant colours found:', dominants)
 
-# TODO: add possibility to set the pooling size
 pooled = img_processing.poolingOverlap(
 			im, 
 			pooling_size,
@@ -130,5 +129,7 @@ mask = np.array([mask.T, mask.T, mask.T]).T
 textile = img_processing.apply_mask(pooled_dom, mask)
 plt.imsave(out_fol + 'textile_' + im_name + '.png', textile/255)
 plt.imsave(out_fol + 'textile_' + im_name + '.svg', textile/255)
+gridded = img_processing.apply_grid(textile)
+plt.imsave(out_fol + 'textile_grid_' + im_name + '.svg', gridded/255)
 print('🧵', '\tcreated textile\n')
 print('🐏', '\tfinished')
